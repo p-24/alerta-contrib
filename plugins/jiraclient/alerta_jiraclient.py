@@ -28,7 +28,6 @@ JIRA_ISSUE_TYPE =  os.environ.get('JIRA_ISSUE_TYPE') or app.config.get('JIRA_ISS
 class jiraClientEscalate(PluginBase):
 
     def pre_receive(self, alert):
-        alert.attributes['jiraKey'] = "None"
         return alert
 
     def post_receive(self, alert):
