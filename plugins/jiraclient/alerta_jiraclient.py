@@ -27,19 +27,17 @@ JIRA_ISSUE_TYPE =  os.environ.get('JIRA_ISSUE_TYPE') or app.config.get('JIRA_ISS
 class jiraClientEscalate(PluginBase):
 
     def pre_receive(self, alert):
-        alert.attributes['jiraKey'] = "None"
         return alert
 
     def post_receive(self, alert):
-        alert.attributes['jiraKey'] = "None"
-        return alert
+        return 
 
     def status_change(self, alert, status, text):
 
         if alert.status == status:
             return
 
-        if status == 'ack' and alert.attributes['jiraKey'] == "None":
+        if status == 'ack' and alert.attributes.get("jiraKey") == "None":
             
             #options = 
             summary = "%s on %s" % (alert.event, alert.resource) 
@@ -65,6 +63,9 @@ class jiraClientEscalate(PluginBase):
             try:
                 new_issue = jira_client.create_issue(fields=issue_dict)
                 alert.attributes['jiraKey'] = str(new_issue)
+                jiralink = '%s/%s' % (JIRA_URL, alert.attributes['jiraKey'])
+                a ="""<h3><a href="{}">{}</a></h3>""".format(jiralink,alert.attributes['jiraKey'])
+                alert.attributes['jiraLink'] = a
             except Exception as e:
                 raise RuntimeError("Jira: Failed to create issue - %s", e)
 
