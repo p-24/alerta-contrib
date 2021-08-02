@@ -31,7 +31,8 @@ class jiraClientEscalate(PluginBase):
         return alert
 
     def post_receive(self, alert):
-        return
+        alert.attributes['jiraKey'] = None
+        return alert
 
     def status_change(self, alert, status, text):
 
