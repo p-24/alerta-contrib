@@ -27,6 +27,14 @@ JIRA_ISSUE_TYPE =  os.environ.get('JIRA_ISSUE_TYPE') or app.config.get('JIRA_ISS
 
 class jiraClientEscalate(PluginBase):
 
+   def jirakey_retrieval(alert):
+      if(alert.attributes['jiraKey'])
+           return alert.attributes['jiraKey']
+      else 
+            alert.attributes['jiraKey'] = "None"
+            return "None"
+   
+   
     def pre_receive(self, alert):
         return alert
 
@@ -40,7 +48,7 @@ class jiraClientEscalate(PluginBase):
 
         #if alert.status == 'ack' and alert.attributes.get("jiraKey") == "None":
         if alert.status == 'ack':
-         if alert.attributes.get("jiraKey") == "None":
+         if jirakey_retrieval(alert) == "None":
            #issue1 = jira.issue(alert.attributes.get("jiraKey"))
            #if issue1.fields.status == "Closed" or issue1.fields.status == "Done"):
             #options = 
