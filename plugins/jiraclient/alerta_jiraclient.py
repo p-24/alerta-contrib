@@ -37,7 +37,7 @@ class jiraClientEscalate(PluginBase):
         if alert.status == status:
             return
 
-        if status == 'ack' and alert.attributes.get("jiraKey") == "None":
+        if alert.status == 'ack' and alert.attributes.get("jiraKey") == "None":
             
             #options = 
             summary = "%s on %s" % (alert.event, alert.resource) 
