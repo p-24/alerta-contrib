@@ -30,7 +30,7 @@ class jiraClientEscalate(PluginBase):
     def jirakey_retrieval(alert):
       if(alert.attributes['jiraKey'])
            return alert.attributes['jiraKey']
-      else 
+      else:
             alert.attributes['jiraKey'] = "None"
             return "None"
    
