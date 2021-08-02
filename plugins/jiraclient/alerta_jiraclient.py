@@ -37,8 +37,8 @@ class jiraClientEscalate(PluginBase):
         if alert.status == status:
             return
 
-        #if alert.status == 'ack' and alert.attributes.get("jiraKey") == "None":
-        if alert.status == 'ack':
+        if alert.status == 'ack' and alert.attributes.get("jiraKey") == "None":
+        #if alert.status == 'ack':
             
             #options = 
             summary = "%s on %s" % (alert.event, alert.resource) 
@@ -64,7 +64,7 @@ class jiraClientEscalate(PluginBase):
             try:
                 new_issue = jira_client.create_issue(fields=issue_dict)
                 alert.attributes['jiraKey'] = str(new_issue)
-                jiralink = '%s/%s' % (JIRA_URL, alert.attributes['jiraKey'])
+                jiralink = '%s/%s' % (JIRA_API_URL, alert.attributes['jiraKey'])
                 a ="""<h3><a href="{}">{}</a></h3>""".format(jiralink,alert.attributes['jiraKey'])
                 alert.attributes['jiraLink'] = a
             except Exception as e:
