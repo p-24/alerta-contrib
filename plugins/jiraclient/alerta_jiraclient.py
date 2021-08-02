@@ -72,6 +72,7 @@ class jiraClientEscalate(PluginBase):
                 alert.attributes['jiraLink'] = a
             except Exception as e:
                 raise RuntimeError("Jira: Failed to create issue - %s", e)
+                raise ApiError("Jira: Ticket already exist", alert.attributes['jiraKey'])
 
          #else:
           #raise RuntimeError("Jira: Ticket already exist")
