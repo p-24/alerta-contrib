@@ -47,7 +47,7 @@ class jiraClientEscalate(PluginBase):
             return
 
         #if alert.status == 'ack' and alert.attributes.get("jiraKey") == "None":
-        if alert.status == 'ack':
+        if status == 'ack':
          if self.jirakey_retrieval(alert) == "None":
            #issue1 = jira.issue(alert.attributes.get("jiraKey"))
            #if issue1.fields.status == "Closed" or issue1.fields.status == "Done"):
