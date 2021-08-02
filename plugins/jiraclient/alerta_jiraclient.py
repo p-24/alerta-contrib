@@ -2,6 +2,7 @@ import os
 import datetime
 from jira import JIRA
 import logging
+from alerta.exceptions import ApiError
 
 try:
    from alerta.plugins import app  # alerta >= 5.0
@@ -27,6 +28,7 @@ JIRA_ISSUE_TYPE =  os.environ.get('JIRA_ISSUE_TYPE') or app.config.get('JIRA_ISS
 class jiraClientEscalate(PluginBase):
 
     def pre_receive(self, alert):
+        alert.attributes['jiraKey'] = "None"
         return alert
 
     def post_receive(self, alert):
@@ -37,9 +39,9 @@ class jiraClientEscalate(PluginBase):
         if alert.status == status:
             return
 
-        if alert.status == 'ack' and alert.attributes.get("jiraKey") == "None":
-        #if alert.status == 'ack':
-            
+        #if alert.status == 'ack' and alert.attributes.get("jiraKey") == "None":
+        if alert.status == 'ack':
+          if alert.attributes.get("jiraKey") == "None":           
             #options = 
             summary = "%s on %s" % (alert.event, alert.resource) 
             description = alert.text
@@ -70,5 +72,8 @@ class jiraClientEscalate(PluginBase):
             except Exception as e:
                 raise RuntimeError("Jira: Failed to create issue - %s", e)
 
-
+        else:
+          raise RuntimeError("Jira: Ticket already exist")
+          raise ApiError("Jira: Ticket already exist")
+         
         return alert, status, text
