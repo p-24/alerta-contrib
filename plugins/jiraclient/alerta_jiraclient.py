@@ -28,7 +28,7 @@ JIRA_ISSUE_TYPE =  os.environ.get('JIRA_ISSUE_TYPE') or app.config.get('JIRA_ISS
 class jiraClientEscalate(PluginBase):
 
     def jirakey_retrieval(self,alert):
-      if(alert.attributes['jiraKey']):
+      if(alert.attributes.get('jiraKey')):
            return alert.attributes['jiraKey']
       else:
             alert.attributes['jiraKey'] = "None"
