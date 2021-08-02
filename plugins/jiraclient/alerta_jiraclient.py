@@ -3,26 +3,26 @@ import datetime
 from jira import JIRA
 import logging
 
-#try:
-#    from alerta.plugins import app  # alerta >= 5.0
-#except ImportError:
-#    from alerta.app import app  # alerta < 5.0
+try:
+   from alerta.plugins import app  # alerta >= 5.0
+except ImportError:
+   from alerta.app import app  # alerta < 5.0
 from alerta.plugins import PluginBase
 
 LOG = logging.getLogger('alerta.plugins.jira')
 
 
-#JIRA_API_URL = os.environ.get('JIRA_API_URL') or app.config.get('JIRA_API_URL', None)
-#JIRA_API_USERNAME = os.environ.get('JIRA_API_USERNAME') or app.config.get('JIRA_API_USERNAME', '')
-#JIRA_API_PASSWORD = os.environ.get('JIRA_API_PASSWORD') or app.config.get('JIRA_API_PASSWORD', '')
-#JIRA_PROJECT_KEY = os.environ.get('JIRA_PROJECT_KEY') or app.config.get('JIRA_PROJECT_KEY', '')
-#JIRA_ISSUE_TYPE =  os.environ.get('JIRA_ISSUE_TYPE') or app.config.get('JIRA_ISSUE_TYPE', 'Bug')
+JIRA_API_URL = os.environ.get('JIRA_API_URL') or app.config.get('JIRA_API_URL', None)
+JIRA_API_USERNAME = os.environ.get('JIRA_API_USERNAME') or app.config.get('JIRA_API_USERNAME', '')
+JIRA_API_PASSWORD = os.environ.get('JIRA_API_PASSWORD') or app.config.get('JIRA_API_PASSWORD', '')
+JIRA_PROJECT_KEY = os.environ.get('JIRA_PROJECT_KEY') or app.config.get('JIRA_PROJECT_KEY', '')
+JIRA_ISSUE_TYPE =  os.environ.get('JIRA_ISSUE_TYPE') or app.config.get('JIRA_ISSUE_TYPE', 'Bug')
 
-JIRA_API_URL = 'http://uat-servicedesk.nvidiangn.net:8080'
-JIRA_API_USERNAME = 'moogqa'
-JIRA_API_PASSWORD = 'moogqa'
-JIRA_PROJECT_KEY = 'MOOG'
-JIRA_ISSUE_TYPE = 'Incident' # Default 'Bug'
+#JIRA_API_URL = 'http://uat-servicedesk.nvidiangn.net:8080'
+#JIRA_API_USERNAME = 'moogqa'
+#JIRA_API_PASSWORD = 'moogqa'
+#JIRA_PROJECT_KEY = 'MOOG'
+#JIRA_ISSUE_TYPE = 'Incident' # Default 'Bug'
 
 class jiraClientEscalate(PluginBase):
 
